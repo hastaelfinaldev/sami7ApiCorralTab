@@ -5,36 +5,23 @@ const SQLite = require('sqlite3')
 const moment = require('moment');
 require('moment/locale/es');
 
+
 db.connection = new Sequelize(
     process.env.DATABASE,
     process.env.USER_NAME,
     process.env.PASSWORD,
     {
         host: process.env.HOST,
+        port: process.env.DB_PORT,
         dialect: process.env.DIALECT,
+        define: {
+            charset: 'utf8',
+            collate: 'utf8_spanish_ci',
+            timestamps: true
+        },
+        logging: false // Desactivar logs de SQL
     }
 )
-
-
-// db.connection = new Sequelize({
-//     dialect: process.env.DIALECT,
-//     storage: process.env.STORAGE, // or ':memory:'
-//     dialectOptions: {
-//         // Your sqlite3 options here
-//         //   for instance, this is how you can configure the database opening mode:
-//         mode: SQLite.OPEN_READWRITE | SQLite.OPEN_CREATE | SQLite.OPEN_FULLMUTEX,
-//     },
-//     define: {
-//         // Especificar aquí el orden predeterminado
-//         // Ejemplo: ordenar por la columna 'id' en orden descendente de forma predeterminada
-//         defaultScope: {
-//             order: [['id', 'DESC']],
-//         },
-//         charset: 'utf8', // Definir el conjunto de caracteres
-//         collate: 'utf8_spanish_ci', // Definir el modo de comparación de cadenas (ci = case insensitive
-        
-//     }
-// })
 
 db.Profiles = require('./models/profiles')(db.connection, DataTypes)
 db.Users = require('./models/users')(db.connection, DataTypes)
