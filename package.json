@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node main.js",
     "build": "mode main.js",
-    "dev": "node main.js",
-    "install": "npm install"
+    "dev": "node main.js"
   },
   "author": "",
   "license": "ISC",
